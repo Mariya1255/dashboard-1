@@ -1,31 +1,41 @@
-import AcmeLogo from '@/app/ui/acme-logo';
+import AcmeLogo from '@/app/ui/invoices/acme-logo';
 import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
+import Styles from '@/app/ui/home.module.css';
+import { lusitana } from "@/app/ui/fonts";
+import Image from 'next/image';
 
 export default function Page() {
   return (
-    <main className="flex min-h-screen flex-col p-6">
-      <div className="flex h-20 shrink-0 items-end rounded-lg bg-blue-500 p-4 md:h-52">
-        {/* <AcmeLogo /> */}
+    <main className="flex flex-col items-center min-h-screen p-6 bg-gray-100">
+      {/* Blue banner on top */}
+      <div className="w-full h-24 md:h-48 bg-blue-500 flex items-center justify-center">
+        <AcmeLogo />
       </div>
-      <div className="mt-4 flex grow flex-col gap-4 md:flex-row">
-        <div className="flex flex-col justify-center gap-6 rounded-lg bg-gray-50 px-6 py-10 md:w-2/5 md:px-20">
-          <p className={`text-xl text-gray-800 md:text-3xl md:leading-normal`}>
-            <strong>Welcome to Acme.</strong> This is the example for the{' '}
-            <a href="https://nextjs.org/learn/" className="text-blue-500">
-              Next.js Learn Course
-            </a>
-            , brought to you by Vercel.
+
+      {/* Main content area */}
+      <div className="flex flex-col md:flex-row items-center justify-between w-full max-w-5xl bg-white rounded-lg shadow-lg p-8 mt-6">
+        {/* Text Section */}
+        <div className="flex flex-col items-start md:w-1/2 p-4">
+          <h1 className="text-2xl font-bold mb-2">Welcome to Acme</h1>
+          <p className="text-gray-600 mb-4">
+            This is the example for the <a href="#" className="text-blue-500 underline">Next.js Learn Course</a>, brought to you by Vercel.
           </p>
-          <Link
-            href="/login"
-            className="flex items-center gap-5 self-start rounded-lg bg-blue-500 px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-blue-400 md:text-base"
-          >
-            <span>Log in</span> <ArrowRightIcon className="w-5 md:w-6" />
+          <Link href="#" className="flex items-center text-blue-500 hover:text-blue-600">
+            <span>Log in</span>
+            <ArrowRightIcon className="w-5 h-5 ml-1" />
           </Link>
         </div>
-        <div className="flex items-center justify-center p-6 md:w-3/5 md:px-28 md:py-12">
-          {/* Add Hero Images Here */}
+
+        {/* Image Section */}
+        <div className="mt-6 md:mt-0 md:w-1/2 flex items-center justify-center">
+          <Image
+            src="/hero-desktop.png" // Ensure this image path is correct
+            width={500}
+            height={350}
+            alt="Screenshots of the dashboard project showing desktop version"
+            className="rounded-lg shadow"
+          />
         </div>
       </div>
     </main>
