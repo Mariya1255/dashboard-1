@@ -1,6 +1,12 @@
 import Link from 'next/link';
-import NavLinks from '@/app/ui/dashboard/nav-links';
-import AcmeLogo from '@/app/ui/invoices/acme-logo';
+import NavLinks from '../invoices/nav-links'; // Correct path based on your structure
+// Ensure the path is correct
+import AcmeLogo from '../invoices/acme-logo'; // Correct path to go one level up to reach 'invoices'
+
+ // This path is correct
+ // Adjust the path accordingly
+// Adjust the path accordingly
+
 import { PowerIcon } from '@heroicons/react/24/outline';
 
 export default function SideNav() {

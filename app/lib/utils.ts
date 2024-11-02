@@ -1,69 +1,43 @@
-import { Revenue } from './definitions';
+// Import necessary types from definitions
+import { Revenue } from './definitions'; // Make sure the path is correct
 
-export const formatCurrency = (amount: number) => {
-  return (amount / 100).toLocaleString('en-US', {
+/**
+ * Formats a number as currency in USD.
+ * @param amount - The amount to format.
+ * @returns A string representing the formatted currency.
+ */
+export function formatCurrency(amount: number): string {
+  return new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD',
-  });
-};
+  }).format(amount);
+}
 
-export const formatDateToLocal = (
-  dateStr: string,
-  locale: string = 'en-US',
-) => {
-  const date = new Date(dateStr);
-  const options: Intl.DateTimeFormatOptions = {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-  };
-  const formatter = new Intl.DateTimeFormat(locale, options);
-  return formatter.format(date);
-};
+/**
+ * Calculates the highest revenue from an array of revenue data.
+ * @param revenue - Array of Revenue objects.
+ * @returns The top label rounded up to the nearest thousand.
+ */
+export function calculateHighestRevenue(revenue: Revenue[]): number {
+  // Check if revenue is not empty to avoid errors
+  if (revenue.length === 0) return 0; 
 
-export const generateYAxis = (revenue: Revenue[]) => {
-  // Calculate what labels we need to display on the y-axis
-  // based on highest record and in 1000s
-  const yAxisLabels = [];
-  const highestRecord = Math.max(...revenue.map((month) => month.revenue));
+  // Calculate the highest revenue safely
+  const highestRecord = Math.max(...revenue.map((item) => item.revenue));
+
+  // Round up to the nearest thousand
   const topLabel = Math.ceil(highestRecord / 1000) * 1000;
 
-  for (let i = topLabel; i >= 0; i -= 1000) {
-    yAxisLabels.push(`$${i / 1000}K`);
-  }
+  return topLabel; // Return the calculated top label
+}
 
-  return { yAxisLabels, topLabel };
-};
+// Example usage of the function
+const revenueData: Revenue[] = [
+  { month: 'January', revenue: 2000 },
+  { month: 'February', revenue: 3000 },
+  // Add more monthly data as necessary
+];
 
-export const generatePagination = (currentPage: number, totalPages: number) => {
-  // If the total number of pages is 7 or less,
-  // display all pages without any ellipsis.
-  if (totalPages <= 7) {
-    return Array.from({ length: totalPages }, (_, i) => i + 1);
-  }
-
-  // If the current page is among the first 3 pages,
-  // show the first 3, an ellipsis, and the last 2 pages.
-  if (currentPage <= 3) {
-    return [1, 2, 3, '...', totalPages - 1, totalPages];
-  }
-
-  // If the current page is among the last 3 pages,
-  // show the first 2, an ellipsis, and the last 3 pages.
-  if (currentPage >= totalPages - 2) {
-    return [1, 2, '...', totalPages - 2, totalPages - 1, totalPages];
-  }
-
-  // If the current page is somewhere in the middle,
-  // show the first page, an ellipsis, the current page and its neighbors,
-  // another ellipsis, and the last page.
-  return [
-    1,
-    '...',
-    currentPage - 1,
-    currentPage,
-    currentPage + 1,
-    '...',
-    totalPages,
-  ];
-};
+// Call the function to test it
+const highestRevenue = calculateHighestRevenue(revenueData);
+console.log('Highest Revenue:', highestRevenue);
