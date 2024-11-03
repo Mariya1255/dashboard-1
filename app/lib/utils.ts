@@ -1,6 +1,15 @@
 // Import necessary types from definitions
 import { Revenue } from './definitions'; // Make sure the path is correct
 
+export function formatDateToLocal(dateString: string): string {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+}
+
 /**
  * Formats a number as currency in USD.
  * @param amount - The amount to format.

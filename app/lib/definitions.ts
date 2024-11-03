@@ -62,7 +62,7 @@ export type InvoiceForm = {
 export type InvoicesTable = Invoice[];
 
 // Define the type for raw latest invoices data
-export type LatestInvoiceRaw = {
+export type LatestInvoice = {
   amount: number;
   name: string;
   image_url?: string;
